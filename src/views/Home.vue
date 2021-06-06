@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column bg" style="height: 100vh; width: 100vw">
+  <div class="d-flex flex-column h-100 w-100 bg">
     <div class="my-auto px-3">
       <div class="mb-3 mx-auto w-100 border-bottom" style="max-width: 1000px">
         <h1>Fire Chat</h1>

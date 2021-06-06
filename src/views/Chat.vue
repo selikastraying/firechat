@@ -25,7 +25,7 @@
       <a class="nav-link my-auto" @click="logout" href="#"> 登出 </a>
     </div>
     <div
-      class="d-flex flex-column mx-auto p-3 overflow-auto noscrollbar"
+      class="d-flex flex-column p-1 overflow-auto noscrollbar"
       style="height: 90%"
     >
       <Userlist
@@ -45,7 +45,7 @@
         v-if="isChating"
       />
       <div
-        class="d-flex my-3"
+        class="d-flex my-1"
         style="height: 6%; min-height: 6%"
         v-if="isChating"
       >
