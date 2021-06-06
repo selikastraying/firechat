@@ -23,17 +23,6 @@
         我的紀錄
       </a>
       <a class="nav-link my-auto" @click="logout" href="#"> 登出 </a>
-      <img
-        :src="user.photoURL"
-        class="nav-item"
-        style="
-          max-height: 90%;
-          width: auto;
-          border-radius: 50%;
-          border: 4px solid #333;
-        "
-        v-if="user"
-      />
     </div>
     <div
       class="d-flex flex-column mx-auto p-3 overflow-auto noscrollbar"
