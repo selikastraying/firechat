@@ -1,5 +1,5 @@
 <template>
-  <div class="bg" style="height: 100vh; width: 100vw">
+  <div class="bg" style="height: 100%; width: 100%">
     <div class="nav justify-content-end border-bottom p-3" style="height: 10%">
       <a class="nav-link my-auto" @click="room = ''" href="#" v-if="isChating">
         ←Back
@@ -39,11 +39,35 @@
         v-if="!isChating && isRoomlist"
       />
       <Chatlist
-        :roomdata="roomdata"
+        :reversemessages="reversemessages"
         :name="userdata.name"
         @update="sent"
         v-if="isChating"
       />
+      <div
+        class="d-flex my-3"
+        style="height: 6%; min-height: 6%"
+        v-if="isChating"
+      >
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control text-left h-100"
+            v-model="newchat"
+            @keyup.enter="sent"
+            placeholder="Chat Here..."
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-primary mx-2"
+              @click="sent"
+              :disabled="newchat == ''"
+            >
+              <p class="my-auto" style="line-height: 80%">Sent</p>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -70,6 +94,8 @@ export default {
       userdata: [],
       room: '',
       roomdata: {},
+      reversemessages: [],
+      newchat: '',
       isChating: false,
       isRoomlist: false,
     }
@@ -125,15 +151,18 @@ export default {
         })
       }
     },
-    sent(newchat) {
-      messages.doc(this.room).update({
-        messages: firebase.firestore.FieldValue.arrayUnion({
-          name: this.userdata.name,
-          text: newchat,
-          uid: this.userdata.uid,
-          time: new Date(),
-        }),
-      })
+    sent() {
+      if (this.newchat != '') {
+        messages.doc(this.room).update({
+          messages: firebase.firestore.FieldValue.arrayUnion({
+            name: this.userdata.name,
+            text: this.newchat,
+            uid: this.userdata.uid,
+            time: new Date(),
+          }),
+        })
+        this.newchat = ''
+      }
     },
     logout() {
       firebase
@@ -153,13 +182,19 @@ export default {
     room: {
       handler(room) {
         if (room != '') {
-          this.$bind('roomdata', messages.doc(room)).then(
-            () => (this.isChating = true)
-          )
+          this.$bind('roomdata', messages.doc(room)).then(() => {
+            this.isChating = true
+            // this.reversemessages = this.roomdata.messages.reverse()
+          })
         } else {
           this.roomdata = {}
           this.isChating = false
         }
+      },
+    },
+    roomdata: {
+      handler(roomdata) {
+        this.reversemessages = roomdata.messages.reverse()
       },
     },
   },
