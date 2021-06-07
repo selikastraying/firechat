@@ -11,7 +11,7 @@
         href="#"
         v-if="!isChating"
       >
-        找人聊天
+        所有用戶
       </a>
       <a
         class="nav-link my-auto"
@@ -20,7 +20,7 @@
         href="#"
         v-if="!isChating"
       >
-        我的紀錄
+        聊天紀錄
       </a>
       <a class="nav-link my-auto" @click="logout" href="#"> 登出 </a>
     </div>
@@ -30,6 +30,7 @@
     >
       <Userlist
         :userlist="userlist"
+        :uid="userdata.uid"
         @update="newRoom"
         v-if="!isChating && !isRoomlist"
       />
@@ -40,7 +41,7 @@
       />
       <Chatlist
         :reversemessages="reversemessages"
-        :name="userdata.name"
+        :uid="userdata.uid"
         @update="sent"
         v-if="isChating"
       />

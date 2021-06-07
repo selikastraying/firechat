@@ -11,14 +11,14 @@
     "
   >
     <div class="my-3" v-for="(data, index) in reversemessages" :key="index">
-      <div class="d-flex justify-content-end" v-if="data.name == name">
+      <div class="d-flex justify-content-end" v-if="data.uid == uid">
         <div>
           <p class="border rounded-pill p-2 bg-light">
             {{ data.text }}
           </p>
         </div>
       </div>
-      <div class="d-flex justify-content-start" v-if="data.name != name">
+      <div class="d-flex justify-content-start" v-if="data.uid != uid">
         <div>
           <p class="text-left mb-0">{{ data.name }}</p>
           <p class="border rounded-pill p-2 bg-light">
@@ -37,7 +37,7 @@ export default {
       type: Array,
       require: true,
     },
-    name: {
+    uid: {
       type: String,
       require: true,
     },

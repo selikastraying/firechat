@@ -1,5 +1,5 @@
 <template>
-  <div class="h-100 list-group">
+  <div class="h-100 list-group panel">
     <div
       class="list-group-item list-group-item-action"
       v-for="room in rooms"
